@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Script Help for Roblox</title>
+<meta name="description" content="Scripts et tutoriels utiles pour Roblox Studio.">
+<style>
+
+*{box-sizing:border-box}
+:root{
+ --bg:#070911;--panel:#0d111c;--panel2:#111727;--panel3:#151c2d;
+ --text:#f5f7ff;--muted:#8b95aa;--line:#202a3d;--purple:#8b5cf6;
+ --purple2:#a78bfa;--blue:#5b8cff;--green:#35d07f;
+}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+a{text-decoration:none;color:inherit}button,input,textarea,select{font:inherit}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(circle at 12% 0%,#8b5cf614,transparent 32%),radial-gradient(circle at 90% 25%,#5b8cff0d,transparent 28%)}
+.topbar{height:74px;background:#090c15e8;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 5vw;position:sticky;top:0;z-index:20;backdrop-filter:blur(18px)}
+.brand{display:flex;align-items:center;gap:11px;font-weight:850;font-size:18px}
+.brand-icon{width:39px;height:39px;border-radius:11px;background:linear-gradient(135deg,var(--purple),#5b7cff);color:#fff;display:grid;place-items:center;font-weight:950;box-shadow:0 8px 28px #8b5cf633}
+.brand b{color:var(--purple2)}
+nav{display:flex;gap:26px;color:#9da7ba;font-size:14px;font-weight:700}
+nav a:hover{color:#fff}
+main{max-width:1500px;margin:auto}
+.hero{padding:65px 6vw 45px;display:grid;grid-template-columns:1.12fr .88fr;gap:40px;align-items:center}
+.hero-copy{padding:10px 0}
+.pill{display:inline-flex;padding:8px 12px;border:1px solid #8b5cf638;border-radius:999px;background:#8b5cf610;color:#b59aff;font-size:12px;font-weight:850}
+.hero h1{font-size:clamp(48px,6vw,82px);line-height:.96;letter-spacing:-4px;margin:22px 0 18px}
+.hero h1 span{background:linear-gradient(90deg,#a78bfa,#6ea0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--muted);font-size:17px;line-height:1.7;max-width:680px}
+.searchbox{margin-top:28px;height:62px;max-width:700px;display:flex;align-items:center;border:1px solid #29334a;border-radius:15px;background:#0c111d;padding:0 18px;box-shadow:0 15px 45px #0007}
+.searchbox:focus-within{border-color:#8b5cf6;box-shadow:0 0 0 4px #8b5cf61a,0 15px 45px #0007}
+.searchbox span{color:#a78bfa;font-size:27px}
+.searchbox input{border:0;outline:0;background:transparent;width:100%;color:#fff;padding:10px;font-size:15px}
+.hero-card{background:linear-gradient(145deg,#12182a,#0b0f18);border:1px solid #273149;border-radius:22px;padding:17px;box-shadow:0 25px 80px #0009;transform:rotate(.6deg)}
+.code-window{background:#070a11;border-radius:14px;overflow:hidden;border:1px solid #1c2537}
+.dots{height:43px;border-bottom:1px solid #1c2537;display:flex;align-items:center;gap:7px;padding:0 15px;color:#69758b;font-size:12px}
+.dots i{width:9px;height:9px;border-radius:50%;background:#414b60}.dots span{margin-left:8px}
+.code-window pre{margin:0;padding:21px;overflow:auto;color:#cbd4e7;font:12px/1.8 ui-monospace,SFMono-Regular,Consolas,monospace}
+.preview-note{padding:13px 2px 1px;color:#8f9ab0;font-size:12px;font-weight:750}
+.section{padding:40px 6vw}
+.section-title{display:flex;align-items:end;justify-content:space-between;margin-bottom:20px}
+.eyebrow{font-size:11px;letter-spacing:1.6px;color:#a78bfa;font-weight:900}
+.section-title h2{font-size:31px;letter-spacing:-1px;margin:6px 0 0}
+.count{color:#69758b;font-size:13px}
+.categories{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+.category{border:1px solid var(--line);background:var(--panel);color:#fff;border-radius:15px;padding:17px;text-align:left;cursor:pointer;transition:.18s}
+.category:hover,.category.active{border-color:#8b5cf6;background:#8b5cf612;transform:translateY(-3px);box-shadow:0 10px 28px #0005}
+.category .icon{font-size:23px;margin-bottom:9px}.category strong{display:block;font-size:14px}.category small{color:#6f7b91;font-size:11px}
+.script-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:17px}
+.script-card{background:var(--panel);border:1px solid var(--line);border-radius:17px;overflow:hidden;box-shadow:0 10px 30px #0004;display:flex;flex-direction:column;transition:.18s}
+.script-card:hover{transform:translateY(-3px);border-color:#313d57}
+.thumb{height:150px;background:radial-gradient(circle at center,#1c2540,#0a0e17 70%);position:relative;display:grid;place-items:center;font-size:50px}
+.play{position:absolute;left:12px;bottom:12px;border:1px solid #313c55;background:#111827;color:#b9a5ff;border-radius:8px;padding:6px 8px;font-size:11px;font-weight:800;cursor:pointer}
+.card-body{padding:19px;display:flex;flex-direction:column;flex:1}.tag{color:#a78bfa;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.7px}
+.card-body h3{font-size:19px;margin:7px 0}.card-body p{font-size:13px;line-height:1.55;color:var(--muted);min-height:41px}
+.place{font-size:11px;color:#69758b;margin:8px 0 16px}.actions{display:flex;gap:8px;margin-top:auto}
+.actions button{flex:1;padding:10px;border-radius:9px;border:1px solid #29344a;background:#141b2a;color:#dce2ee;font-weight:800;cursor:pointer}
+.actions .copy{background:linear-gradient(135deg,#8b5cf6,#6d5cf7);border-color:#8b5cf6;color:#fff}
+.actions button:hover{filter:brightness(1.1)}
+.empty{text-align:center;padding:70px;color:#788398}
+.help-section{margin:40px 6vw 70px;padding:40px;background:linear-gradient(145deg,#101626,#0c111d);border:1px solid var(--line);border-radius:22px;display:grid;grid-template-columns:.9fr 1.1fr;gap:60px;box-shadow:0 15px 45px #0005}
+.help-copy h2{font-size:37px;line-height:1.1;letter-spacing:-1.5px;margin:10px 0}.help-copy p{color:var(--muted);line-height:1.6}
+.help-form{display:grid;gap:14px}.help-form label{font-size:12px;font-weight:800;color:#aeb7c8}.help-form label span{font-weight:500;color:#69758b}
+.help-form input,.help-form textarea,.help-form select{width:100%;display:block;margin-top:6px;border:1px solid #29344a;border-radius:10px;background:#080c15;color:#fff;padding:12px;outline:0}
+.help-form textarea{min-height:115px;resize:vertical}.help-form input:focus,.help-form textarea:focus,.help-form select:focus{border-color:#8b5cf6;box-shadow:0 0 0 3px #8b5cf61a}
+.primary{border:0;border-radius:10px;padding:13px;background:linear-gradient(135deg,#8b5cf6,#6d5cf7);color:#fff;font-weight:850;cursor:pointer}.form-status{font-size:12px;color:#a78bfa}
+footer{padding:28px 6vw;border-top:1px solid var(--line);display:flex;justify-content:space-between;color:#69758b;font-size:11px;background:#080b12}
+.modal{display:none;position:fixed;inset:0;z-index:40;align-items:center;justify-content:center}.modal.open{display:flex}
+.modal-backdrop{position:absolute;inset:0;background:#03050bd9;backdrop-filter:blur(7px)}
+.modal-box{position:relative;z-index:1;width:min(850px,92vw);max-height:88vh;overflow:auto;background:#0e1421;border:1px solid #2b3750;border-radius:18px;padding:25px;box-shadow:0 30px 100px #000}
+.close{position:absolute;right:13px;top:8px;border:0;background:transparent;color:#7e8aa0;font-size:30px;cursor:pointer}.modal-box h2{margin-top:5px}
+.video-placeholder{min-height:260px;border:1px dashed #34415b;border-radius:13px;background:#090e18;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:#77849a;font-size:28px}
+.video-placeholder strong{font-size:16px;color:#c5ccda}.video-placeholder span{font-size:13px}
+.modal-code{background:#070a11;border:1px solid #1f293b;border-radius:12px;padding:16px;overflow:auto;white-space:pre;color:#d3daea;font:12px/1.7 ui-monospace,Consolas,monospace}
+.modal-actions{display:flex;gap:10px;margin-top:14px}.modal-actions button{padding:11px 16px;border-radius:9px;border:1px solid #29344a;background:#141b2a;color:#fff;font-weight:850;cursor:pointer}.modal-actions .copy{background:#8b5cf6;border-color:#8b5cf6}
+@media(max-width:950px){.hero{grid-template-columns:1fr}.categories{grid-template-columns:repeat(3,1fr)}.script-grid{grid-template-columns:repeat(2,1fr)}.help-section{grid-template-columns:1fr}}
+@media(max-width:620px){.topbar{padding:0 18px}nav{display:none}.hero{padding:35px 18px}.hero h1{letter-spacing:-2px}.section{padding:30px 18px}.categories{grid-template-columns:repeat(2,1fr)}.script-grid{grid-template-columns:1fr}.help-section{margin:20px 18px 45px;padding:26px 20px}.help-copy h2{font-size:29px}footer{display:block;padding:24px 18px}footer span{display:block;margin:5px 0}}
+
+
+.search-wrap{position:relative;max-width:700px}.search-wrap .searchbox{max-width:none}.suggestions{position:absolute;left:0;right:0;top:68px;background:#0d111c;border:1px solid #29344a;border-radius:13px;box-shadow:0 18px 50px #0009;overflow:hidden;z-index:15}.suggestion{display:flex;align-items:center;gap:12px;width:100%;padding:12px 15px;border:0;border-bottom:1px solid #1c2537;background:transparent;color:#e9edf7;text-align:left;cursor:pointer}.suggestion:last-child{border-bottom:0}.suggestion:hover{background:#8b5cf612}.suggestion-icon{width:30px;height:30px;border-radius:8px;background:#151d2d;display:grid;place-items:center}.suggestion small{display:block;color:#748097;margin-top:2px}.suggestion mark{background:transparent;color:#bba8ff;font-weight:850}
+
+.search-wrap{position:relative;width:min(700px,100%);z-index:30}
+.searchbox{max-width:none;position:relative;z-index:31}
+.suggestions{position:absolute;left:0;right:0;top:70px;background:#0d111c;border:1px solid #3a4662;border-radius:14px;box-shadow:0 24px 65px #000b;overflow:hidden;z-index:100;max-height:390px;overflow-y:auto}
+.suggestions:before{content:"RÉSULTATS";display:block;padding:11px 15px 8px;color:#7f8ba2;font-size:10px;font-weight:900;letter-spacing:1.3px;background:#0a0e17;border-bottom:1px solid #1c2537}
+.suggestion{display:flex;align-items:center;gap:12px;width:100%;min-height:58px;padding:10px 15px;border:0;border-bottom:1px solid #1c2537;background:#0d111c;color:#e9edf7;text-align:left;cursor:pointer}
+.suggestion:last-child{border-bottom:0}
+.suggestion:hover{background:#171e30}
+.suggestion-icon{width:34px;height:34px;flex:none;border-radius:9px;background:#151d2d;display:grid;place-items:center;font-size:18px}
+.suggestion b{display:block;font-size:13px}
+.suggestion small{display:block;color:#748097;margin-top:3px;font-size:11px}
+@media(max-width:620px){.suggestions{top:68px}.suggestion{min-height:54px}}
+
+
+@media(min-width:951px){.categories{grid-template-columns:repeat(7,1fr)}}
+
+
+.assistant-section{margin:40px 6vw 70px;padding:38px;background:linear-gradient(145deg,#101626,#0b101b);border:1px solid #263149;border-radius:22px;box-shadow:0 18px 55px #0006}
+.assistant-head{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;margin-bottom:22px}.assistant-head h2{font-size:34px;letter-spacing:-1.2px;margin:7px 0}.assistant-head p{color:#8b95aa;margin:0;line-height:1.6}
+.assistant-badge{white-space:nowrap;border:1px solid #35d07f38;background:#35d07f0d;color:#62e59a;padding:8px 12px;border-radius:999px;font-size:11px;font-weight:800}
+.assistant-box{background:#080c15;border:1px solid #202b40;border-radius:16px;overflow:hidden}.chat{min-height:230px;max-height:430px;overflow:auto;padding:20px}
+.chat-message{display:flex;gap:12px;max-width:850px;margin-bottom:18px}.chat-avatar{width:36px;height:36px;border-radius:10px;background:#171f31;display:grid;place-items:center;flex:none}.chat-message strong{font-size:12px;color:#bca7ff}.chat-message p{margin:5px 0 0;color:#c6cedd;font-size:13px;line-height:1.6}
+.chat-message.user{margin-left:auto;justify-content:flex-end}.chat-message.user .chat-avatar{order:2;background:#6f55df}.chat-message.user strong{color:#9e8bff}
+.quick-prompts{display:flex;gap:8px;flex-wrap:wrap;padding:0 20px 15px}.quick-prompts button{border:1px solid #27334a;background:#111827;color:#9ca8bc;border-radius:9px;padding:8px 10px;font-size:11px;cursor:pointer}.quick-prompts button:hover{border-color:#7659df;color:#ddd}
+.assistant-form{display:flex;gap:10px;padding:15px 20px;border-top:1px solid #1b2537}.assistant-form textarea{flex:1;resize:none;border:1px solid #29354c;background:#0d1320;color:#fff;border-radius:11px;padding:12px;outline:none}.assistant-form textarea:focus{border-color:#8b5cf6;box-shadow:0 0 0 3px #8b5cf61a}
+.assistant-send{align-self:stretch;border:0;border-radius:10px;background:linear-gradient(135deg,#8b5cf6,#6754ef);color:#fff;font-weight:850;padding:0 19px;cursor:pointer}.assistant-note{padding:0 20px 15px;color:#59667c;font-size:10px}
+@media(max-width:620px){.assistant-section{margin:25px 18px 45px;padding:24px 15px}.assistant-head{display:block}.assistant-badge{display:inline-block;margin-top:14px}.assistant-form{display:block}.assistant-send{width:100%;height:44px;margin-top:8px}}
+
+
+.assistant-fab{position:fixed;right:25px;bottom:25px;width:52px;height:52px;border-radius:50%;border:1px solid #8b5cf6;background:linear-gradient(135deg,#8b5cf6,#6250e8);color:#fff;font-size:23px;display:grid;place-items:center;cursor:pointer;z-index:50;box-shadow:0 8px 30px #0008,0 0 22px #8b5cf633}
+.assistant-fab:hover{transform:translateY(-2px);filter:brightness(1.08)}
+.assistant-panel{position:fixed;right:25px;bottom:88px;width:min(390px,calc(100vw - 36px));height:520px;background:#0d1320;border:1px solid #2b3750;border-radius:17px;z-index:50;box-shadow:0 25px 80px #000b;display:none;overflow:hidden}
+.assistant-panel.open{display:flex;flex-direction:column}
+.assistant-panel-head{height:58px;padding:0 14px;border-bottom:1px solid #202b40;display:flex;align-items:center;justify-content:space-between}
+.assistant-panel-head b{display:block;font-size:13px}.assistant-panel-head small{display:block;color:#68758b;font-size:10px;margin-top:3px}
+.assistant-panel-head button{border:0;background:transparent;color:#8490a4;font-size:25px;cursor:pointer}
+.assistant-panel .chat{flex:1;min-height:0;max-height:none;overflow:auto;padding:16px}
+.assistant-panel .chat-message{display:flex;gap:9px;margin-bottom:14px}.assistant-panel .chat-avatar{width:31px;height:31px;font-size:14px}.assistant-panel .chat-message strong{font-size:11px}.assistant-panel .chat-message p{font-size:12px;margin-top:4px}
+.assistant-panel .quick-prompts{padding:0 12px 10px}.assistant-panel .quick-prompts button{font-size:10px;padding:7px 8px}
+.assistant-panel .assistant-form{padding:10px 12px;border-top:1px solid #1b2537;display:flex;gap:7px}.assistant-panel .assistant-form textarea{font-size:12px;min-width:0}.assistant-panel .assistant-send{width:42px;padding:0;flex:none}
+@media(max-width:620px){.assistant-fab{right:17px;bottom:17px}.assistant-panel{right:17px;bottom:79px;height:500px}}
+
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="#"><span class="brand-icon">R</span><span>Script Help <b>for Roblox</b></span></a>
+  <nav>
+    <a href="#scripts">Scripts</a>
+    <a href="#categories">Catégories</a>
+    <a href="#help">Besoin d'aide ?</a>
+  </nav>
+</header>
+
+<main>
+
+<button class="assistant-fab" id="assistantFab" type="button" aria-label="Ouvrir l'assistant Roblox">🤖</button>
+<div class="assistant-panel" id="assistantPanel" aria-hidden="true">
+  <div class="assistant-panel-head"><div><b>🤖 Assistant Roblox</b><small>Roblox Studio uniquement</small></div><button id="assistantClose" type="button">×</button></div>
+  <div class="chat" id="assistantChat">
+    <div class="chat-message bot"><div class="chat-avatar">🤖</div><div><strong>Assistant Roblox</strong><p>Décris-moi ton problème et je t'aide à choisir quoi faire et où placer ton script.</p></div></div>
+  </div>
+  <div class="quick-prompts">
+    <button type="button" data-prompt="Où dois-je placer mon script ?">📁 Où placer mon script ?</button>
+    <button type="button" data-prompt="Mon script ne fonctionne pas.">🐛 Mon script ne marche pas</button>
+  </div>
+  <form class="assistant-form" id="assistantForm">
+    <textarea id="assistantInput" placeholder="Écris ton problème..." rows="2"></textarea>
+    <button class="assistant-send" type="submit">➜</button>
+  </form>
+</div>
+<section class="hero">
+  <div class="hero-copy">
+    <div class="pill">🧩 Roblox Studio • Scripts FR</div>
+    <h1>Construis ton jeu<br><span>sans galérer.</span></h1>
+    <p>Retrouve des scripts prêts à utiliser, avec une explication simple, l'emplacement du script et une petite démonstration avant de copier.</p>
+    <div class="search-wrap">
+      <div class="searchbox">
+        <span>⌕</span>
+        <input id="search" type="search" placeholder="Rechercher : cycle jour/nuit, dégâts, GUI..." autocomplete="off">
+      </div>
+      <div id="suggestions" class="suggestions" hidden></div>
+    </div>
+  </div>
+  <div class="hero-card">
+    <div class="code-window">
+      <div class="dots"><i></i><i></i><i></i><span>Script</span></div>
+      <pre><code>local part = script.Parent
+
+part.Touched:Connect(function(hit)
+    local humanoid =
+        hit.Parent:FindFirstChild("Humanoid")
+
+    if humanoid then
+        humanoid.Health = 0
+    end
+end)</code></pre>
+    </div>
+    <div class="preview-note">▶ Démo disponible avant de copier</div>
+  </div>
+</section>
+
+<section id="categories" class="section">
+  <div class="section-title"><div><span class="eyebrow">EXPLORER</span><h2>Catégories</h2></div></div>
+  <div class="categories" id="categoryList"></div>
+</section>
+
+<section id="scripts" class="section">
+  <div class="section-title">
+    <div><span class="eyebrow">BIBLIOTHÈQUE</span><h2>Scripts utiles</h2></div>
+    <span id="resultCount" class="count"></span>
+  </div>
+  <div id="scriptGrid" class="script-grid"></div>
+  <div id="empty" class="empty" hidden>Aucun script ne correspond à ta recherche.</div>
+</section>
+
+<section id="help" class="help-section">
+  <div class="help-copy">
+    <span class="eyebrow">BESOIN D'AIDE</span>
+    <h2>Tu as un problème<br>sur le site ?</h2>
+    <p>Décris ton problème. Le formulaire prépare un message avec les informations utiles pour demander de l'aide.</p>
+  </div>
+  <form id="helpForm" class="help-form">
+    <label>Ton pseudo Roblox <span>(optionnel)</span>
+      <input id="username" type="text" maxlength="40" placeholder="Ex : Yoyo123">
+    </label>
+    <label>Ton problème
+      <textarea id="problem" maxlength="1200" required placeholder="Ex : Mon script de cycle jour/nuit ne change pas l'heure..."></textarea>
+    </label>
+    <label>Catégorie
+      <select id="problemCategory">
+        <option>Script</option><option>GUI</option><option>Animation</option>
+        <option>DataStore</option><option>Erreur Roblox Studio</option><option>Autre</option>
+      </select>
+    </label>
+    <button class="primary" type="submit">Envoyer mon problème →</button>
+    <p class="form-status" id="formStatus"></p>
+  </form>
+</section>
+</main>
+
+<footer>
+  <span>© 2026 Script Help for Roblox</span>
+  <span>Créé pour aider les créateurs Roblox Studio.</span>
+</footer>
+
+<div id="modal" class="modal" aria-hidden="true">
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-box">
+    <button class="close" data-close aria-label="Fermer">×</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<script>
+const scripts = [
+{ id:"kill", title:"Une Part qui tue", category:"Combat", icon:"💀", place:"Script dans la Part", desc:"Quand un joueur touche la Part, son personnage meurt.", code:`local part = script.Parent
+
+part.Touched:Connect(function(hit)
+    local humanoid = hit.Parent:FindFirstChild("Humanoid")
+
+    if humanoid then
+        humanoid.Health = 0
+    end
+end)`},
+{ id:"cycle", title:"Cycle jour / nuit", category:"Environnement", icon:"🌙", place:"Script dans ServerScriptService", desc:"Fait tourner automatiquement le temps de la journée.", code:`local Lighting = game:GetService("Lighting")
+
+local dayLength = 120
+
+while true do
+    for minutes = 0, 24 * 60 do
+        Lighting:SetMinutesAfterMidnight(minutes)
+        task.wait(dayLength / (24 * 60))
+    end
+end`},
+{ id:"leader", title:"Leaderstats Coins", category:"Système", icon:"💰", place:"Script dans ServerScriptService", desc:"Crée une statistique Coins visible dans le classement.", code:`local Players = game:GetService("Players")
+
+Players.PlayerAdded:Connect(function(player)
+    local leaderstats = Instance.new("Folder")
+    leaderstats.Name = "leaderstats"
+    leaderstats.Parent = player
+
+    local coins = Instance.new("IntValue")
+    coins.Name = "Coins"
+    coins.Value = 0
+    coins.Parent = leaderstats
+end)`},
+{ id:"teleport", title:"Téléporter un joueur", category:"Système", icon:"🌀", place:"Script dans la Part", desc:"Téléporte le joueur vers une Part appelée TeleportPoint.", code:`local part = script.Parent
+local destination = workspace:WaitForChild("TeleportPoint")
+
+part.Touched:Connect(function(hit)
+    local character = hit.Parent
+    local root = character:FindFirstChild("HumanoidRootPart")
+
+    if root then
+        root.CFrame = destination.CFrame + Vector3.new(0, 3, 0)
+    end
+end)`},
+{ id:"damage", title:"Part qui inflige 25 dégâts", category:"Combat", icon:"❤️", place:"Script dans la Part", desc:"Retire 25 points de vie quand le joueur touche la Part.", code:`local part = script.Parent
+local cooldown = {}
+
+part.Touched:Connect(function(hit)
+    local humanoid = hit.Parent:FindFirstChild("Humanoid")
+
+    if humanoid and not cooldown[humanoid] then
+        cooldown[humanoid] = true
+        humanoid:TakeDamage(25)
+        task.wait(1)
+        cooldown[humanoid] = nil
+    end
+end)`},
+{ id:"coins", title:"Coins / monnaie", category:"Système", icon:"💰", place:"Script dans ServerScriptService", desc:"Crée une statistique Coins pour chaque joueur.", code:`local Players = game:GetService("Players")
+
+Players.PlayerAdded:Connect(function(player)
+    local leaderstats = Instance.new("Folder")
+    leaderstats.Name = "leaderstats"
+    leaderstats.Parent = player
+
+    local coins = Instance.new("IntValue")
+    coins.Name = "Coins"
+    coins.Value = 0
+    coins.Parent = leaderstats
+end)`, demo:""},
+{ id:"wins", title:"Wins", category:"Système", icon:"🏆", place:"Script dans ServerScriptService", desc:"Ajoute une statistique Wins au joueur.", code:`local Players = game:GetService("Players")
+
+Players.PlayerAdded:Connect(function(player)
+    local leaderstats = Instance.new("Folder")
+    leaderstats.Name = "leaderstats"
+    leaderstats.Parent = player
+
+    local wins = Instance.new("IntValue")
+    wins.Name = "Wins"
+    wins.Value = 0
+    wins.Parent = leaderstats
+end)`, demo:""},
+{ id:"xp", title:"XP et niveau", category:"Système", icon:"⭐", place:"Script dans ServerScriptService", desc:"Crée XP et Level avec passage de niveau automatique.", code:`local Players = game:GetService("Players")
+
+Players.PlayerAdded:Connect(function(player)
+    local stats = Instance.new("Folder")
+    stats.Name = "leaderstats"
+    stats.Parent = player
+
+    local level = Instance.new("IntValue")
+    level.Name = "Level"
+    level.Value = 1
+    level.Parent = stats
+
+    local xp = Instance.new("IntValue")
+    xp.Name = "XP"
+    xp.Value = 0
+    xp.Parent = stats
+
+    xp.Changed:Connect(function(value)
+        local needed = level.Value * 100
+        while xp.Value >= needed do
+            xp.Value -= needed
+            level.Value += 1
+            needed = level.Value * 100
+        end
+    end)
+end)`, demo:""},
+{ id:"checkpoint", title:"Checkpoint", category:"Système", icon:"🏁", place:"Script dans la Part checkpoint", desc:"Enregistre le dernier checkpoint touché par le joueur.", code:`local Players = game:GetService("Players")
+local checkpoint = script.Parent
+
+checkpoint.Touched:Connect(function(hit)
+    local character = hit.Parent
+    local player = Players:GetPlayerFromCharacter(character)
+
+    if player then
+        player:SetAttribute("Checkpoint", checkpoint:GetFullName())
+    end
+end)`, demo:""},
+{ id:"timer", title:"Timer", category:"Système", icon:"⏱️", place:"Script dans ServerScriptService", desc:"Crée un compte à rebours global de 60 secondes.", code:`local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local timer = Instance.new("IntValue")
+timer.Name = "RoundTimer"
+timer.Value = 60
+timer.Parent = ReplicatedStorage
+
+while true do
+    timer.Value = 60
+
+    for seconds = 60, 0, -1 do
+        timer.Value = seconds
+        task.wait(1)
+    end
+
+    task.wait(2)
+end`, demo:""},
+{ id:"dailyreward", title:"Récompense quotidienne", category:"Système", icon:"🎁", place:"Script dans ServerScriptService", desc:"Donne une récompense quand le joueur rejoint le jeu.", code:`local Players = game:GetService("Players")
+
+Players.PlayerAdded:Connect(function(player)
+    local leaderstats = player:WaitForChild("leaderstats", 10)
+    if not leaderstats then return end
+
+    local coins = leaderstats:FindFirstChild("Coins")
+    if coins then
+        coins.Value += 100
+    end
+end)`, demo:""},
+{ id:"stats", title:"Statistiques du joueur", category:"Système", icon:"📊", place:"Script dans ServerScriptService", desc:"Ajoute plusieurs statistiques simples au joueur.", code:`local Players = game:GetService("Players")
+
+Players.PlayerAdded:Connect(function(player)
+    local stats = Instance.new("Folder")
+    stats.Name = "PlayerStats"
+    stats.Parent = player
+
+    local kills = Instance.new("IntValue")
+    kills.Name = "Kills"
+    kills.Value = 0
+    kills.Parent = stats
+
+    local deaths = Instance.new("IntValue")
+    deaths.Name = "Deaths"
+    deaths.Value = 0
+    deaths.Parent = stats
+end)`, demo:""},
+{ id:"code", title:"Code de récompense", category:"Système", icon:"🎟️", place:"Script dans ServerScriptService", desc:"Exemple de code secret qui donne 100 Coins.", code:`local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local redeem = Instance.new("RemoteEvent")
+redeem.Name = "RedeemCode"
+redeem.Parent = ReplicatedStorage
+
+local validCode = "WELCOME"
+
+redeem.OnServerEvent:Connect(function(player, code)
+    if string.upper(code) ~= validCode then return end
+
+    local coins = player:FindFirstChild("leaderstats")
+        and player.leaderstats:FindFirstChild("Coins")
+
+    if coins then
+        coins.Value += 100
+    end
+end)`, demo:""},
+{ id:"sprint", title:"Sprint", category:"Déplacement", icon:"🏃", place:"LocalScript dans StarterPlayerScripts", desc:"Maintiens Shift pour courir plus vite.", code:`local Players = game:GetService("Players")
+local UserInputService = game:GetService("UserInputService")
+
+local player = Players.LocalPlayer
+local normalSpeed = 16
+local sprintSpeed = 26
+
+local function setupCharacter(character)
+    local humanoid = character:WaitForChild("Humanoid")
+    humanoid.WalkSpeed = normalSpeed
+
+    UserInputService.InputBegan:Connect(function(input, processed)
+        if processed then return end
+        if input.KeyCode == Enum.KeyCode.LeftShift then
+            humanoid.WalkSpeed = sprintSpeed
+        end
+    end)
+
+    UserInputService.InputEnded:Connect(function(input)
+        if input.KeyCode == Enum.KeyCode.LeftShift then
+            humanoid.WalkSpeed = normalSpeed
+        end
+    end)
+end
+
+if player.Character then
+    setupCharacter(player.Character)
+end
+player.CharacterAdded:Connect(setupCharacter)`, demo:""},
+{ id:"doublejump", title:"Double saut", category:"Déplacement", icon:"🦘", place:"LocalScript dans StarterPlayerScripts", desc:"Permet au joueur de faire un deuxième saut dans les airs.", code:`local Players = game:GetService("Players")
+local UserInputService = game:GetService("UserInputService")
+
+local player = Players.LocalPlayer
+local usedDoubleJump = false
+local canDoubleJump = false
+
+local function setupCharacter(character)
+    local humanoid = character:WaitForChild("Humanoid")
+    usedDoubleJump = false
+    canDoubleJump = false
+
+    humanoid.StateChanged:Connect(function(_, newState)
+        if newState == Enum.HumanoidStateType.Landed then
+            usedDoubleJump = false
+            canDoubleJump = false
+        elseif newState == Enum.HumanoidStateType.Freefall then
+            canDoubleJump = true
+        end
+    end)
+
+    UserInputService.JumpRequest:Connect(function()
+        if canDoubleJump and not usedDoubleJump then
+            usedDoubleJump = true
+            humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+        end
+    end)
+end
+
+if player.Character then setupCharacter(player.Character) end
+player.CharacterAdded:Connect(setupCharacter)`, demo:""},
+{ id:"dash", title:"Dash", category:"Déplacement", icon:"💨", place:"LocalScript dans StarterPlayerScripts", desc:"Appuie sur Q pour faire une accélération rapide.", code:`local Players = game:GetService("Players")
+local UserInputService = game:GetService("UserInputService")
+
+local player = Players.LocalPlayer
+local cooldown = false
+
+UserInputService.InputBegan:Connect(function(input, processed)
+    if processed or cooldown or input.KeyCode ~= Enum.KeyCode.Q then
+        return
+    end
+
+    local character = player.Character
+    local root = character and character:FindFirstChild("HumanoidRootPart")
+    if not root then return end
+
+    cooldown = true
+    root.AssemblyLinearVelocity =
+        root.CFrame.LookVector * 80 + Vector3.new(0, root.AssemblyLinearVelocity.Y, 0)
+
+    task.wait(1)
+    cooldown = false
+end)`, demo:""},
+{ id:"superjump", title:"Super saut", category:"Déplacement", icon:"🚀", place:"Script dans ServerScriptService", desc:"Augmente la puissance de saut du joueur.", code:`local Players = game:GetService("Players")
+
+local jumpPower = 80
+
+Players.PlayerAdded:Connect(function(player)
+    player.CharacterAdded:Connect(function(character)
+        local humanoid = character:WaitForChild("Humanoid")
+        humanoid.UseJumpPower = true
+        humanoid.JumpPower = jumpPower
+    end)
+end)`, demo:""},
+{ id:"teleportpart", title:"Téléportation avec une Part", category:"Déplacement", icon:"🌀", place:"Script dans la Part", desc:"Téléporte le joueur vers une Part appelée TeleportPoint.", code:`local Players = game:GetService("Players")
+local part = script.Parent
+local destination = workspace:WaitForChild("TeleportPoint")
+
+local debounce = {}
+
+part.Touched:Connect(function(hit)
+    local character = hit.Parent
+    local player = Players:GetPlayerFromCharacter(character)
+    local root = character:FindFirstChild("HumanoidRootPart")
+
+    if player and root and not debounce[player] then
+        debounce[player] = true
+        root.CFrame = destination.CFrame + Vector3.new(0, 3, 0)
+        task.wait(1)
+        debounce[player] = nil
+    end
+end)`, demo:""},
+{ id:"grapple", title:"Grappin simple", category:"Déplacement", icon:"🪝", place:"LocalScript dans StarterPlayerScripts", desc:"Clique avec le bouton gauche pour te propulser vers un point devant toi.", code:`local Players = game:GetService("Players")
+local UserInputService = game:GetService("UserInputService")
+
+local player = Players.LocalPlayer
+local cooldown = false
+
+UserInputService.InputBegan:Connect(function(input, processed)
+    if processed or cooldown or input.UserInputType ~= Enum.UserInputType.MouseButton1 then
+        return
+    end
+
+    local character = player.Character
+    local root = character and character:FindFirstChild("HumanoidRootPart")
+    if not root then return end
+
+    local target = root.Position + root.CFrame.LookVector * 45
+    cooldown = true
+    root.AssemblyLinearVelocity = (target - root.Position).Unit * 90
+    task.wait(1)
+    cooldown = false
+end)`, demo:""},
+{ id:"gui", title:"Afficher une GUI", category:"GUI", icon:"🖥️", place:"LocalScript dans StarterGui", desc:"Affiche un message simple dans une interface.", code:`local player = game.Players.LocalPlayer
+local gui = Instance.new("ScreenGui")
+gui.Parent = player:WaitForChild("PlayerGui")
+
+local label = Instance.new("TextLabel")
+label.Size = UDim2.fromScale(0.5, 0.1)
+label.Position = UDim2.fromScale(0.25, 0.1)
+label.Text = "Bienvenue !"
+label.TextScaled = true
+label.Parent = gui`},
+{ id:"npcfollow", title:"PNJ qui suit le joueur", category:"IA / PNJ", icon:"🧠", place:"Script dans le modèle du PNJ", desc:"Un PNJ simple cherche le joueur le plus proche et se déplace vers lui.", code:`local npc = script.Parent
+local humanoid = npc:WaitForChild("Humanoid")
+local root = npc:WaitForChild("HumanoidRootPart")
+local Players = game:GetService("Players")
+
+while task.wait(0.5) do
+    local closestCharacter
+    local closestDistance = math.huge
+
+    for _, player in Players:GetPlayers() do
+        local character = player.Character
+        local targetRoot = character and character:FindFirstChild("HumanoidRootPart")
+
+        if targetRoot then
+            local distance = (targetRoot.Position - root.Position).Magnitude
+            if distance < closestDistance then
+                closestDistance = distance
+                closestCharacter = character
+            end
+        end
+    end
+
+    if closestCharacter then
+        humanoid:MoveTo(closestCharacter.HumanoidRootPart.Position)
+    end
+end`}
+];
+
+const categories = [
+["✨","Tous",""],["💀","Combat","Combat"],["🌙","Environnement","Environnement"],["🏃","Déplacement","Déplacement"],
+["🖥️","GUI","GUI"],["💰","Système","Système"],["🧠","IA / PNJ","IA / PNJ"]
+];
+
+const grid=document.getElementById("scriptGrid"), search=document.getElementById("search");
+const count=document.getElementById("resultCount"), empty=document.getElementById("empty");
+const suggestions=document.getElementById("suggestions");
+const modal=document.getElementById("modal"), modalContent=document.getElementById("modalContent");
+
+function renderCategories(active=""){
+  document.getElementById("categoryList").innerHTML=categories.map(c=>
+    `<button class="category ${active===c[2]?"active":""}" data-cat="${c[2]}"><div class="icon">${c[0]}</div><strong>${c[1]}</strong><small>${c[2]?"Scripts":"Tout voir"}</small></button>`).join("");
+  document.querySelectorAll(".category").forEach(b=>b.onclick=()=>{
+    search.value="";
+    renderScripts("", b.dataset.cat);
+    renderCategories(b.dataset.cat);
+    document.getElementById("scripts").scrollIntoView({behavior:"smooth"});
+  });
+}
+
+function normalizeText(value){
+  return value.toLowerCase().normalize("NFD").replace(/[\\u0300-\\u036f]/g,"").replace(/[^a-z0-9 ]/g," ");
+}
+function levenshtein(a,b){
+  const prev=Array.from({length:b.length+1},(_,i)=>i);
+  for(let i=1;i<=a.length;i++){
+    let cur=[i];
+    for(let j=1;j<=b.length;j++){
+      cur[j]=Math.min(cur[j-1]+1,prev[j]+1,prev[j-1]+(a[i-1]===b[j-1]?0:1));
+    }
+    for(let j=0;j<=b.length;j++) prev[j]=cur[j];
+  }
+  return prev[b.length];
+}
+function fuzzyScore(query,text){
+  const q=normalizeText(query).trim(), t=normalizeText(text);
+  if(!q) return 0;
+  if(t.includes(q)) return 100;
+  const words=t.split(/\\s+/).filter(Boolean);
+  let best=0;
+  for(const word of words){
+    if(word.startsWith(q)) best=Math.max(best,85);
+    const d=levenshtein(q,word);
+    const allowed=q.length<=3?1:q.length<=6?2:3;
+    if(d<=allowed) best=Math.max(best,75-d*10);
+  }
+  const qWords=q.split(/\\s+/).filter(Boolean);
+  const matched=qWords.filter(w=>t.includes(w)).length;
+  if(matched) best=Math.max(best,55+matched*10);
+  return best;
+}
+function getScore(s,q){
+  if(!q) return 0;
+  return Math.max(
+    fuzzyScore(q,s.title)*2,
+    fuzzyScore(q,s.category),
+    fuzzyScore(q,s.desc),
+    fuzzyScore(q,s.place)
+  );
+}
+function renderSuggestions(query=""){
+  const q=query.trim();
+  if(!q){suggestions.hidden=true;suggestions.innerHTML="";return;}
+  const results=scripts.map(s=>({s,score:getScore(s,q)})).filter(x=>x.score>=45).sort((a,b)=>b.score-a.score).slice(0,6);
+  if(!results.length){suggestions.hidden=true;suggestions.innerHTML="";return;}
+  suggestions.innerHTML=results.map(({s})=>`<button class="suggestion" data-suggest="${s.id}"><span class="suggestion-icon">${s.icon}</span><span><b>${s.title}</b><small>${s.category}</small></span></button>`).join("");
+  suggestions.hidden=false;
+  suggestions.querySelectorAll("[data-suggest]").forEach(b=>b.onclick=()=>{
+    const s=scripts.find(x=>x.id===b.dataset.suggest);
+    search.value=s.title;
+    renderScripts(s.title);
+    renderCategories("");
+    suggestions.hidden=true;
+    document.getElementById("scripts").scrollIntoView({behavior:"smooth",block:"start"});
+  });
+}
+function renderScripts(query="",cat=""){
+  const q=query.trim();
+  const list=scripts.filter(s=>{
+    if(cat && s.category!==cat) return false;
+    return !q || getScore(s,q)>=45;
+  }).sort((a,b)=>getScore(b,q)-getScore(a,q));
+  grid.innerHTML=list.map(s=>`
+  <article class="script-card">
+    <div class="thumb"><span>${s.icon}</span><button class="play" data-demo="${s.id}">▶ Voir la démo</button></div>
+    <div class="card-body"><span class="tag">${s.category}</span><h3>${s.title}</h3><p>${s.desc}</p>
+    <div class="place">📍 ${s.place}</div><div class="actions">
+      <button data-demo="${s.id}">Voir</button><button class="copy" data-copy="${s.id}">Copier le code</button>
+    </div></div>
+  </article>`).join("");
+  count.textContent=`${list.length} script${list.length>1?"s":""}`;
+  empty.hidden=list.length!==0;
+  document.querySelectorAll("[data-copy]").forEach(b=>b.onclick=()=>copyScript(b.dataset.copy,b));
+  document.querySelectorAll("[data-demo]").forEach(b=>b.onclick=()=>openDemo(b.dataset.demo));
+}
+
+async function copyScript(id,button){
+  const s=scripts.find(x=>x.id===id);
+  try{
+    await navigator.clipboard.writeText(s.code);
+    const old=button.textContent; button.textContent="✓ Copié !"; button.disabled=true;
+    setTimeout(()=>{button.textContent=old;button.disabled=false},1400);
+  }catch(e){
+    const ta=document.createElement("textarea"); ta.value=s.code; ta.style.position="fixed"; ta.style.opacity="0";
+    document.body.appendChild(ta); ta.focus(); ta.select();
+    const ok=document.execCommand("copy"); ta.remove();
+    button.textContent=ok?"✓ Copié !":"❌ Copie impossible";
+    setTimeout(()=>button.textContent="Copier le code",1400);
+  }
+}
+
+function openDemo(id){
+  const s=scripts.find(x=>x.id===id);
+  modalContent.innerHTML=`<span class="eyebrow">${s.category}</span><h2>${s.icon} ${s.title}</h2>
+  <p>${s.desc}</p><div class="video-placeholder">🎬<strong>Démo bientôt disponible</strong><span>La vidéo de ce script sera ajoutée ici.</span></div>
+  <p><b>À placer :</b> ${s.place}</p><pre class="modal-code">${escapeHtml(s.code)}</pre>
+  <div class="modal-actions"><button class="copy" id="modalCopy">📋 Copier le code</button></div>`;
+  modal.classList.add("open"); modal.setAttribute("aria-hidden","false");
+  document.getElementById("modalCopy").onclick=()=>copyScript(id,document.getElementById("modalCopy"));
+}
+function escapeHtml(x){return x.replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;")}
+function closeModal(){modal.classList.remove("open");modal.setAttribute("aria-hidden","true");modalContent.innerHTML=""}
+document.querySelectorAll("[data-close]").forEach(x=>x.onclick=closeModal);
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal()});
+search.addEventListener("input",()=>{
+  renderScripts(search.value);
+  renderCategories("");
+  renderSuggestions(search.value);
+});
+document.addEventListener("click",e=>{
+  if(!e.target.closest(".search-wrap")) suggestions.hidden=true;
+});
+
+document.getElementById("helpForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  const username=document.getElementById("username").value.trim()||"Non indiqué";
+  const problem=document.getElementById("problem").value.trim();
+  const cat=document.getElementById("problemCategory").value;
+  const body=`Bonjour, j'ai besoin d'aide sur Script Help for Roblox.
+
+Pseudo Roblox : ${username}
+Catégorie : ${cat}
+
+Mon problème :
+${problem}`;
+  const subject=encodeURIComponent("Aide Roblox Studio - Script Help for Roblox");
+  const mailBody=encodeURIComponent(body);
+  const status=document.getElementById("formStatus");
+  // Remplace cette adresse par l'adresse e-mail du créateur avant la mise en ligne.
+  window.location.href=`mailto:TON_EMAIL_ICI@example.com?subject=${subject}&body=${mailBody}`;
+  status.textContent="Ton logiciel de messagerie va s'ouvrir pour envoyer le problème.";
+});
+
+renderCategories();
+renderScripts();
+
+
+
+
+const assistantFab=document.getElementById("assistantFab"),assistantPanel=document.getElementById("assistantPanel"),assistantClose=document.getElementById("assistantClose");
+const assistantForm=document.getElementById("assistantForm"),assistantInput=document.getElementById("assistantInput"),assistantChat=document.getElementById("assistantChat");
+function addAssistantMessage(text,user=false){const w=document.createElement("div");w.className="chat-message"+(user?" user":"");w.innerHTML=`<div class="chat-avatar">${user?"👤":"🤖"}</div><div><strong>${user?"Toi":"Assistant Roblox"}</strong><p>${text}</p></div>`;assistantChat.appendChild(w);assistantChat.scrollTop=assistantChat.scrollHeight}
+function assistantDemoAnswer(q){
+  const s=q.toLowerCase().trim();
+  const clean=s.replace(/[!?.,;:]+$/g,"").trim();
+
+  // Conversation normale : l'assistant peut répondre à de petites phrases.
+  if(/^(salut|slt|bonjour|bonsoir|coucou|hello|hey|yo)$/.test(clean))
+    return "👋 Salut ! 😄 Ça va très bien, merci ! Et toi ?";
+  if(/^(ça va|ca va|sa va|tu vas bien|tu va bien|comment ça va|comment ca va|comment vas tu|comment vas-tu)$/.test(clean))
+    return "😄 Oui ça va très bien ! Merci de demander. Et toi, ça va ?";
+  if(/^(merci|merci beaucoup|thanks)$/.test(clean))
+    return "😄 Avec plaisir !";
+  if(/^(oui|ouais|yes|ok|d'accord|dac|ça marche|ca marche)$/.test(clean))
+    return "👍 Parfait !";
+
+  // Une phrase de conversation contenant une salutation.
+  if(/(salut|bonjour|coucou|hello|hey|yo)/.test(clean) &&
+     !/roblox|script|studio|gui|part|npc|lua|luau|workspace|starter|server|player|teleport|sprint|porte/.test(clean))
+    return "👋 Salut ! 😄 Dis-moi ce que tu veux faire, je suis là.";
+
+  // Question technique Roblox.
+  if(!/roblox|script|studio|gui|part|npc|lua|luau|workspace|starter|server|player|teleport|sprint|jump|saut|saute|sauter|jump power|humanoid|jeu|porte/.test(clean))
+    return "🙂 Je peux discuter normalement avec toi, mais pour l'aide technique je suis spécialisé dans <b>Roblox Studio</b>. Tu peux me demander où placer un script, comment faire une GUI ou comment corriger une erreur.";
+
+  if(/où|placer|mettre/.test(clean))
+    return "📁 Décris ce que ton script doit faire et je te conseillerai entre <b>ServerScriptService</b>, <b>StarterPlayerScripts</b>, <b>StarterGui</b>, <b>Workspace</b>, etc.";
+  if(/sprint|courir/.test(clean))
+    return "🏃 Pour un sprint avec une touche, je conseille généralement un <b>LocalScript dans StarterPlayer → StarterPlayerScripts</b>.";
+  if(/jump|saut|saute|sauter|jump power|hauteur/.test(clean))
+    return "🦘 Si tu veux modifier le saut du joueur, tu peux utiliser le <b>Humanoid</b> et sa propriété <b>JumpHeight</b> ou <b>JumpPower</b>. Dis-moi exactement ce que tu veux faire avec le jump et je te dirai <b>où placer le script</b> et quel réglage utiliser.";
+  if(/gui|interface|bouton/.test(clean))
+    return "🖥️ Pour une GUI, utilise généralement <b>StarterGui</b>. Pour une action serveur, on pourra utiliser un <b>RemoteEvent</b>.";
+  return "🔧 Décris précisément ce que tu veux faire et je te dirai <b>quoi utiliser, où le placer et comment le faire</b>.";
+}
+assistantFab?.addEventListener("click",()=>{assistantPanel.classList.add("open");assistantPanel.setAttribute("aria-hidden","false");assistantInput.focus()});
+assistantClose?.addEventListener("click",()=>{assistantPanel.classList.remove("open");assistantPanel.setAttribute("aria-hidden","true")});
+assistantForm?.addEventListener("submit",e=>{e.preventDefault();const q=assistantInput.value.trim();if(!q)return;addAssistantMessage(q,true);assistantInput.value="";setTimeout(()=>addAssistantMessage(assistantDemoAnswer(q)),350)});
+document.querySelectorAll(".assistant-panel .quick-prompts button").forEach(b=>b.addEventListener("click",()=>{assistantInput.value=b.dataset.prompt;assistantInput.focus()}));
+
+</script>
+</body>
+</html>
